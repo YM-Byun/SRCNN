@@ -2,11 +2,16 @@ import torch
 import torch.nn as nn
 
 class SRCNN(nn.Module):
-    def __init__(self):
+    def __init__(self, type='rgb'):
         super(SRCNN, self).__init__()
 
+        C = 3
+
+        if type == 'ycbcr':
+            C = 1
+
         self.patch_extraction_representation = nn.Sequential(
-            nn.Conv2d(in_channels=1,
+            nn.Conv2d(in_channels=C,
                 out_channels=64,
                 kernel_size=9),
             nn.ReLU(True))
@@ -19,7 +24,7 @@ class SRCNN(nn.Module):
 
         self.reconstruction = nn.Sequential(
             nn.Conv2d(in_channels=32,
-                out_channels=1,
+                out_channels=C,
                 kernel_size=5))
 
     def forward(self, x):
@@ -32,7 +37,7 @@ class SRCNN(nn.Module):
 
 if __name__ == '__main__':
     dummy_data = torch.rand(10, 1, 32, 32)
-
+  
     srcnn = SRCNN()
 
     print ("SRCNN network")
