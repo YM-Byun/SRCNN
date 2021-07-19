@@ -36,7 +36,7 @@ class SRCNN(nn.Module):
 
 
 if __name__ == '__main__':
-    dummy_data = torch.rand(10, 1, 32, 32)
+    dummy_data = torch.rand(10, 3, 32, 32)
   
     srcnn = SRCNN()
 
