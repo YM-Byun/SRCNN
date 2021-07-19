@@ -1,8 +1,8 @@
 import os
 import cv2
 
-src_path = './val'
-dst_path = './train'
+src_path = './train/hr'
+dst_path = './train/lr'
 
 file_list = os.listdir(src_path)
 
@@ -13,6 +13,6 @@ for idx, image in enumerate(file_list):
 
     big_img = cv2.resize(small_img, (240, 240), interpolation=cv2.INTER_CUBIC)
 
-    cv2.imwrite(os.path.join(dst_path, image), big_img) 
+    cv2.imwrite(os.path.join(dst_path, image), big_img)
 
     print (f"{idx+ 1} / {len(file_list)}")

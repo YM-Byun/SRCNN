@@ -12,7 +12,7 @@ NUMPY_WIDHT = 1
 NUMPY_CHANNEL = 2
 
 origin_path = './origin'
-dst_path = './val'
+dst_path = './train/hr'
 
 file_list = os.listdir(origin_path)
 
