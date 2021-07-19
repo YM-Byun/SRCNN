@@ -30,7 +30,7 @@ for idx, image in enumerate(file_list):
         sub_image_arr = origin_arr[start_y:start_y+SUBIMAGE_SIZE, start_x:start_x+SUBIMAGE_SIZE, :]
 
         sub_image = Image.fromarray(sub_image_arr)
-        sub_image.save(os.path.join(dst_path, image + "_" + str(cnt) + ".jpg"))
+        sub_image.save(os.path.join(dst_path, image.replace(".jpg", "") + "_" + str(cnt) + ".jpg"))
 
         if start_x + STRIDE + SUBIMAGE_SIZE > origin_arr.shape[NUMPY_WIDHT] + PADDING:
             start_x = PADDING
