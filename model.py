@@ -13,7 +13,8 @@ class SRCNN(nn.Module):
         self.patch_extraction_representation = nn.Sequential(
             nn.Conv2d(in_channels=C,
                 out_channels=64,
-                kernel_size=9),
+                kernel_size=9,
+                padding=9//2),
             nn.ReLU(True))
 
         self.non_linear_mapping = nn.Sequential(
@@ -25,7 +26,8 @@ class SRCNN(nn.Module):
         self.reconstruction = nn.Sequential(
             nn.Conv2d(in_channels=32,
                 out_channels=C,
-                kernel_size=5))
+                kernel_size=5,
+                padding=2))
 
     def forward(self, x):
         x = self.patch_extraction_representation(x)
@@ -36,7 +38,7 @@ class SRCNN(nn.Module):
 
 
 if __name__ == '__main__':
-    dummy_data = torch.rand(10, 3, 32, 32)
+    dummy_data = torch.rand(10, 3, 240, 240)
   
     srcnn = SRCNN()
 
