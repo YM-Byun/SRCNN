@@ -5,11 +5,11 @@ import sys
 import torch.nn as nn
 import argparse
 
-from torchvision.datasets.imagenet import ImageFolder
+from Dataset import SRCNN_Dataset
 from torch.utils.data import DataLoader
 from model import SRCNN
 
-batch_size=64
+batch_size=16
 momentum=0.9
 weight_decay = 0.005
 learning_rate = 0.0001
@@ -39,19 +39,21 @@ def main():
 
     if (parser.gpu != -1):
         device = torch.device('cuda:' + str(parser.gpu))
-   
-    dataset = ImageFolder(root='./dataset/train/', transform=None)
+
+    print ("\nLoading Dataset...")
+
+    dataset = SRCNN_Dataset(train=True)
 
     mean, std = get_mean_std(dataset)
+
+    print (f"Mean: {mean}  | Std: {std}")
 
     transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize(mean=mean, std=std)])
 
-    print ("\nLoading Dataset...")
-
-    train_dataset = ImageFolder(root='./dataset/train/', transform=transform)
-    val_dataset =ImageFolder(root='./dataset/val', transform=transform)
+    train_dataset = SRCNN_Dataset(train=True, transform=transform)
+    val_dataset =SRCNN_Dataset(train=False, transform=transform)
 
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
             shuffle=True, num_workers=4)
